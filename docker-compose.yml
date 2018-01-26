@@ -2,4 +2,4 @@ SGSwiftyBind:
   image: ibmcom/swift-ubuntu:latest
   volumes:
     - .:/root/SGSwiftyBind
-  command: bash - c "cd /root/SGSwiftyBind && swift build && swift test"
+  command: bash -c "cd /root/SGSwiftyBind && swift build && swift test"

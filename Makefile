@@ -25,10 +25,13 @@ test:
 	swift test
 
 test_linux: ## Complies and run unit tests in Linux using Docker
-	docker compose up
+	docker-compose up
+
+lint:
+	swiftlint
 
 # Target Dependencies
 all: build project open_xcodeproj ## Complies, generates a new xcodeproj file and opens the project in Xcode
 
-test_local: build test ## Complies and run unit tests locally
+test_local: build test lint ## Complies, run unit tests and lint locally
 

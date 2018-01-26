@@ -24,5 +24,5 @@
 import XCTest
 
 XCTMain([
-    testCase(SGSwiftyBindTests.allTests),
+    testCase(SGSwiftyBindTests.allTests)
 ])

@@ -23,16 +23,75 @@
 @testable import SGSwiftyBind
 import XCTest
 
-class SGSwiftyBindTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(SGSwiftyBind().text, "Hello, World!")
-    }
+// MARK: - Movement Type Enum
+
+// swiftlint:disable identifier_name
+
+/// An enum that representing supported movement types. This is used for testing.
+private enum MovementType {
+    case up
+    case down
+    case left
+    case right
+}
+
+// swiftlint:enable identifier_name
 
 
+// MARK: - SGSwiftyBind Test Suite
+
+/// Test suite for testing SGSwiftyBind behavior.
+final class SGSwiftyBindTests: XCTestCase {
+    
+    // MARK: - Public Class Attributes
     static var allTests = [
-        ("testExample", testExample),
+        ("testBindings", testBind)
     ]
+    
+    
+    // MARK: - Tests
+    
+    /// Tests the binding behavior.
+    func testBind() {
+        let bindExpectation = expectation(description: "Test Bind Behavior: \(#function)")
+        
+        let swiftyBind: SGSwiftyBind<MovementType> = SGSwiftyBind(.up)
+        swiftyBind.interface.bind({ _ in
+            bindExpectation.fulfill()
+        }, for: self)
+        
+        XCTAssertEqual(swiftyBind.observerCount, 1, "Observer was not registered!")
+        
+        swiftyBind.value = .right
+        
+        waitForExpectations(timeout: 10) { (error) in
+            guard error == nil else {
+                XCTFail("Error occured in expectation!")
+                return
+            }
+            swiftyBind.interface.unbind(for: self)
+            XCTAssertEqual(swiftyBind.observerCount, 0, "Observer was not unbinded!")
+        }
+    }
+    
+    /// Tests the bind and firing behavior.
+    func testBindAndFire() {
+        let bindAndFireExpectation = expectation(description: "Test Bind Behavior: \(#function)")
+        
+        let swiftyBind: SGSwiftyBind<MovementType> = SGSwiftyBind(.up)
+        swiftyBind.interface.bindAndFire({ _ in
+            bindAndFireExpectation.fulfill()
+        }, for: self)
+        
+        waitForExpectations(timeout: 10) { (error) in
+            guard error == nil else {
+                XCTFail("Error occured in expectation!")
+                return
+            }
+            
+            XCTAssertEqual(swiftyBind.observerCount, 1, "Observer was not registered!")
+            swiftyBind.interface.unbind(for: self)
+            XCTAssertEqual(swiftyBind.observerCount, 0, "Observer was not unbinded!")
+        }
+    }
 }
