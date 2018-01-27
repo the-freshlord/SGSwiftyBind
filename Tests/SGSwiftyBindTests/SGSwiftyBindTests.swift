@@ -69,6 +69,8 @@ final class SGSwiftyBindTests: XCTestCase {
                 XCTFail("Error occured in expectation!")
                 return
             }
+            
+            XCTAssertEqual(swiftyBind.interface.value, .right, "Value was not changed!")
             swiftyBind.interface.unbind(for: self)
             XCTAssertEqual(swiftyBind.observerCount, 0, "Observer was not unbinded!")
         }
@@ -88,6 +90,8 @@ final class SGSwiftyBindTests: XCTestCase {
                 XCTFail("Error occured in expectation!")
                 return
             }
+            
+            XCTAssertEqual(swiftyBind.interface.value, .up, "Value was not changed!")
             
             XCTAssertEqual(swiftyBind.observerCount, 1, "Observer was not registered!")
             swiftyBind.interface.unbind(for: self)
