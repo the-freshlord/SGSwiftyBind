@@ -126,7 +126,7 @@ public final class SGSwiftyBind<T> {
     // MARK: - Public Instance Attributes
     
     /// The interface that handles all bindings.
-    private(set) var interface: SGSwiftyBindInterface<T>!
+    public private(set) var interface: SGSwiftyBindInterface<T>!
     
     /// The current value.
     var value: T {
