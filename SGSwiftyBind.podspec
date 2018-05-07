@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = "SGSwiftyBind"
-  s.version               = "1.0.0"
+  s.version               = "1.0.1"
   s.summary               = "A light weight approach to event based programming"
   s.homepage              = "https://github.com/eman6576/SGSwiftyBind"
   s.license               = { :type => "MIT" }
