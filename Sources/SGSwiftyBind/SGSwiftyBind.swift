@@ -129,7 +129,7 @@ public final class SGSwiftyBind<T> {
     public private(set) var interface: SGSwiftyBindInterface<T>!
     
     /// The current value.
-    var value: T {
+    public var value: T {
         didSet {
             observers.forEach { $0.listener?(value) }
         }
